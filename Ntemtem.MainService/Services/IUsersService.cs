@@ -9,6 +9,9 @@ public interface IUsersService
     public  Task<User?> GetAsync(string id);
 
     public Task CreateAsync(User newUser);
+    
+    public Task CreateWithoutEventAsync(User newUser);
+
 
     public Task UpdateAsync(string id, User updatedUser);
 

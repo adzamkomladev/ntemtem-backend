@@ -1,11 +1,32 @@
+using MassTransit;
+using Microsoft.Extensions.Options;
+using Ntemtem.MainService.Consumers.Users;
 using Ntemtem.MainService.Services;
 using Ntemtem.MainService.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<MainServiceDatabaseSettings>(
-    builder.Configuration.GetSection("MainServiceDatabase"));
+builder.Services.Configure<MainServiceDatabaseSettings>(builder.Configuration.GetSection("MainServiceDatabase"));
+builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<UserCreatedConsumer>();
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        var rabbitMqSettings = context.GetRequiredService<IOptionsMonitor<RabbitMQSettings>>();
+
+        cfg.Host(rabbitMqSettings.CurrentValue.Host, rabbitMqSettings.CurrentValue.Port, "/", h =>
+        {
+            h.Username(rabbitMqSettings.CurrentValue.Username);
+            h.Password(rabbitMqSettings.CurrentValue.Password);
+        });
+
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 builder.Services.AddSingleton<IUsersService, UsersService>();
 
