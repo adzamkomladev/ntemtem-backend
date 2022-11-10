@@ -52,7 +52,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          key: ${{ secrets.SSHKEY }}
+#          key: ${{ secrets.SSHKEY }}
           script: |
             sudo supervisorctl stop ntemtem.api
             cd /home/dev/webapps/ntemtem/backend/Ntemtem.MainService
