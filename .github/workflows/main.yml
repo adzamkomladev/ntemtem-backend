@@ -56,6 +56,7 @@ jobs:
           script: |
             sudo supervisorctl stop ntemtem.api
             cd /home/dev/webapps/ntemtem/backend/Ntemtem.MainService
+            eval `ssh-agent`
             git pull origin main
             dotnet publish --configuration Release
             sudo supervisorctl start ntemtem.api
