@@ -53,11 +53,11 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.SSHKEY }}
           script: |
-            sudo systemctl stop kestrel-Ntemtem.MainService.service
-            cd /home/dev/ntemtem/ntemtem-backend/MainService
+            sudo supervisorctl stop ntemtem.api
+            cd /home/dev/webapps/ntemtem/backend/Ntemtem.MainService
             git pull origin main
             dotnet publish --configuration Release
-            sudo systemctl start kestrel-Ntemtem.MainService.service
-            sudo systemctl status kestrel-Ntemtem.MainService.service
-            sudo journalctl -u kestrel-Ntemtem.MainService.service -n 30
+            sudo supervisorctl start ntemtem.api
+            sudo supervisorctl status ntemtem.api
+            sudo tail -n 30 /var/log/ntemtem.api.out.log
             echo 'Deployment successful to server!'
