@@ -1,4 +1,5 @@
 using System.Net;
+using Convey;
 using MassTransit;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
@@ -11,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.Configure<MainServiceDatabaseSettings>(builder.Configuration.GetSection("MainServiceDatabase"));
 builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
+
+builder.Services.AddConvey();
 
 builder.Services.AddMassTransit(x =>
 {

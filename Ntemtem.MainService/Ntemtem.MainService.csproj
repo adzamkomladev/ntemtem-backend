@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Convey.Persistence.MongoDB" Version="1.0.541" />
         <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.8" />
         <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0" />
@@ -22,6 +23,22 @@
     <ItemGroup>
       <Folder Include="Controllers\Admin" />
       <Folder Include="HostedServices" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="obj\**" />
     </ItemGroup>
 
 </Project>

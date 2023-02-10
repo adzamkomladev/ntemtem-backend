@@ -1,13 +1,10 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using Convey.Types;
 
 namespace Ntemtem.MainService.Data.Models;
 
-public class User
+public class User : IIdentifiable<Guid>
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Name { get; set; }
     
